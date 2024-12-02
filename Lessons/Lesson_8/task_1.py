@@ -7,25 +7,25 @@ Task_1
 """
 
 
-def calculate_bmi(weight, height_cm):
-    """Функция для расчёта индекса массы тела (ИМТ), где height_cm - рост в сантиметрах"""
+def calculate_imt(weight, height_cm):
+    """Функция для расчёта индекса массы тела (ИМТ)"""
     height_m = height_cm / 100  # Переводим рост из сантиметров в метры
     return weight / (height_m ** 2)
 
 
-def interpret_bmi(bmi):
+def interpret_imt(imt):
     """Функция для интерпретации ИМТ"""
-    if bmi < 18.5:
+    if imt < 18.5:
         return "Недостаточный вес"
-    elif 18.5 <= bmi < 25:
+    elif 18.5 <= imt < 25:
         return "Нормальный вес"
-    elif 25 <= bmi < 30:
+    elif 25 <= imt < 30:
         return "Избыточный вес"
     else:
         return "Ожирение"
 
 
-def calculate_weight_for_normal_bmi(height_cm):
+def calculate_weight_for_normal_imt(height_cm):
     """Функция для вычисления нормального диапазона веса"""
     height_m = height_cm / 100
     min_normal_weight = 18.5 * (height_m ** 2)
@@ -41,35 +41,35 @@ def main():
 
         # Проверка на положительность значений
         if weight <= 0 or height_cm <= 0:
-            raise ValueError("Вес и рост должны быть положительными числами.")
+            raise ValueError("Вес и рост должен быть больше 0")
 
         # Рассчитываем ИМТ
-        bmi = calculate_bmi(weight, height_cm)
+        imt = calculate_imt(weight, height_cm)
 
         # Интерпретируем результат
-        interpretation = interpret_bmi(bmi)
+        interpretation = interpret_imt(imt)
 
         # Вычисляем минимальный и максимальный нормальный вес
-        min_normal_weight, max_normal_weight = calculate_weight_for_normal_bmi(height_cm)
+        min_normal_weight, max_normal_weight = calculate_weight_for_normal_imt(height_cm)
 
-        # Печатаем ИМТ и пояснение
-        print(f"Ваш ИМТ: {bmi:.2f}")
-        print(f"Пояснение: {interpretation}")
+        # Печатаем ИМТ и состояние тела
+        print(f"Ваш ИМТ: {imt:.2f}")
+        print(f"Состояние тела: {interpretation}")
 
         # Если вес не в нормальном диапазоне, выводим, сколько нужно сбросить или набрать
         if weight < min_normal_weight:
-            print(f"Чтобы попасть в нормальный вес, вам нужно набрать примерно {min_normal_weight - weight:.2f} кг.")
+            print(f"Для нормального веса вам нужно набрать примерно {min_normal_weight - weight:.2f} кг.")
         elif weight > max_normal_weight:
-            print(f"Чтобы попасть в нормальный вес, вам нужно сбросить примерно {weight - max_normal_weight:.2f} кг.")
+            print(f"Для нормального веса вам нужно сбросить примерно {weight - max_normal_weight:.2f} кг.")
         else:
-            print("Ваш вес в пределах нормального диапазона.")
+            print("Ваш вес в пределах нормального диапазона")
 
     except ValueError as e:
         print(f"Ошибка ввода: {e}")
     except ZeroDivisionError:
-        print("Ошибка: рост не может быть равен нулю.")
+        print("Ошибка: рост не может быть равен нулю")
     except Exception as e:
-        print(f"Произошла ошибка: {e}")
+        print(f"Ошибка: {e}")
 
 
 # Запуск программы
