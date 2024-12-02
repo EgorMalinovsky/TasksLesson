@@ -72,6 +72,5 @@ def main():
         print(f"Ошибка: {e}")
 
 
-# Запуск программы
 if __name__ == "__main__":
     main()
